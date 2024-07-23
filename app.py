@@ -54,6 +54,9 @@ def statistics():
             runs = c.fetchall()
             c.execute('SELECT SUM(distance) FROM runs')
             total_distance = c.fetchone()[0]
+    if total_distance is None:
+        total_distance = 0.0
+    total_distance = round(total_distance, 2)
     return render_template('statistics.html', runs=runs, total_distance=total_distance)
 
 

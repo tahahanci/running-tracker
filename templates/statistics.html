@@ -26,13 +26,34 @@
                         label: 'Distance (km)',
                         data: {{ runs|map(attribute=1)|list|tojson }},
                         borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
+                        borderWidth: 1,
+                        fill: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        pointHitRadius: 10
                     }]
                 },
                 options: {
                     scales: {
                         y: {
                             beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            enabled: true,
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y.toFixed(2) + ' km';
+                                    }
+                                    return label;
+                                }
+                            }
                         }
                     }
                 }
