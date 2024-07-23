@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Running Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Running Tracker</h1>
+        <a href="{{ url_for('add_run') }}">Add Run</a> |
+        <a href="{{ url_for('statistics') }}">View Statistics</a>
+    </div>
+</body>
+</html>

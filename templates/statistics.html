@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Statistics</h1>
+        <div class="chart-container">
+            <canvas id="runChart"></canvas>
+        </div>
+        <h2>Total Distance: {{ total_distance }} km</h2>
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('runChart').getContext('2d');
+            const runChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: {{ runs|map(attribute=0)|list|tojson }},
+                    datasets: [{
+                        label: 'Distance (km)',
+                        data: {{ runs|map(attribute=1)|list|tojson }},
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
